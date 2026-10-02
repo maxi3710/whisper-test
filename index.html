@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>Whisper-Test am Handy</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Whisper-Test am Handy</h1>
+    <p class="klein">
+      Dieser Test prüft, ob dein Gerät Sprache <strong>selbst</strong> in Text umwandeln kann, ganz ohne Laptop.
+      Deine Aufnahme verlässt das Gerät nicht. Nur beim ersten Start werden die Modelle aus dem Internet geladen
+      (tiny ca. 40 MB, base ca. 75 MB).
+    </p>
+
+    <section class="karte">
+      <h2>Dein Gerät</h2>
+      <ul id="geraet" class="liste"></ul>
+      <div id="schnell-bereich" hidden>
+        <p class="klein">
+          Mehrere Rechenkerne sind aus. Das macht die Umwandlung langsamer.
+          Der Schnellmodus schaltet sie ein (die Seite lädt dabei neu).
+        </p>
+        <button type="button" id="schnell-knopf" class="knopf">Schnellmodus einschalten</button>
+      </div>
+    </section>
+
+    <section class="karte">
+      <h2>1. Sprache</h2>
+      <p class="klein">Lies etwa eine Minute einen Text laut vor, oder wähle eine vorhandene Aufnahme.</p>
+      <div class="knopf-reihe">
+        <button type="button" id="aufnahme-knopf" class="knopf">60 Sekunden aufnehmen</button>
+        <label class="knopf zweit" for="datei-wahl">Audiodatei wählen</label>
+        <input id="datei-wahl" type="file" accept="audio/*,video/mp4" hidden>
+      </div>
+      <p id="audio-status" class="status" role="status" aria-live="polite">Noch keine Sprache.</p>
+    </section>
+
+    <section class="karte">
+      <h2>2. Test</h2>
+      <fieldset>
+        <legend>Modelle</legend>
+        <label class="auswahl"><input type="checkbox" name="modell" value="Xenova/whisper-tiny" checked> tiny (schnell, ungenau)</label>
+        <label class="auswahl"><input type="checkbox" name="modell" value="Xenova/whisper-base" checked> base (langsamer, besser)</label>
+      </fieldset>
+      <fieldset>
+        <legend>Rechner</legend>
+        <label class="auswahl"><input type="radio" name="geraet" value="wasm" checked> Prozessor (WASM)</label>
+        <label class="auswahl" id="webgpu-wahl"><input type="radio" name="geraet" value="webgpu"> Grafikchip (WebGPU)</label>
+      </fieldset>
+      <div class="knopf-reihe">
+        <button type="button" id="start-knopf" class="knopf" disabled>Test starten</button>
+      </div>
+      <p id="test-status" class="status" role="status" aria-live="polite"></p>
+      <div id="fortschritt" class="balken" hidden><div id="fortschritt-balken"></div></div>
+      <p class="klein">
+        <strong>Akku:</strong> Safari zeigt den Akkustand nicht an die Seite. Schau vor und nach dem Test selbst auf den
+        Akku und notiere die Prozente.
+      </p>
+    </section>
+
+    <section id="ergebnisse"></section>
+  </main>
+  <script type="module" src="test.js"></script>
+</body>
+</html>
